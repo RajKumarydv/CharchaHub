@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Homepage from './Pages/HomePage'
+import SingUpPage from './Pages/SingUpPage'
+import Login from './Pages/LoginPage'
+import Notification from './Pages/NotificationPage'
+import CallPage from './Pages/CallPage'
+import ChatPage from './Pages/ChatsPage'
+import OnbordingPage from './Pages/OnbordingPage'
+import { Toaster, toast } from "react-hot-toast";
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="h-screen" data-theme="night">
+      <button onClick={() => toast.success("Hello toast!")}>
+        Create a toast{" "}
+      </button>
+      <button onClick={() => toast.error("This is an error toast!")}>
+        Create error toast{" "}
+      </button>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/singup" element={<SingUpPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/call" element={<CallPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/onbording" element={<OnbordingPage />} />
+      </Routes>
+      <Toaster />
+    </div>
+  );
 }
 
 export default App
