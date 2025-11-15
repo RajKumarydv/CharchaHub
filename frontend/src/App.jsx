@@ -11,6 +11,7 @@ import OnbordingPage from './Pages/OnbordingPage'
 import { Toaster, toast } from "react-hot-toast";
 
 const App = () => {
+  // tanstac  query
   return (
     <div className="h-screen" data-theme="night">
       <button onClick={() => toast.success("Hello toast!")}>
