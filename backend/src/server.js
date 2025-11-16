@@ -5,12 +5,20 @@ import {connectDB} from './lib/db.js';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user.routes.js'
 import chatRoutes from './routes/chat.routes.js'
+import cors from 'cors';
 
 
 dotenv.config();
 const app =  express();
 app.use(cookieParser());
 const PORT = process.env.PORT || 5001;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 
 // app.get('/api/auth/singup', (req, res) => {
