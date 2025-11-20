@@ -45,7 +45,7 @@ const App = () => {
             !isAuthenticated ? (
               <SignUpPage />
             ) : (
-              <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+              <Navigate to={isOnboarded ? "/" : "/"} />
             )
           }
         />
@@ -110,7 +110,6 @@ const App = () => {
           }
         />
       </Routes>
-
       <Toaster />
     </div>
   );
