@@ -16,6 +16,7 @@ import {
 
 import { capitialize } from "../lib/utils";
 
+
 import FriendCard, { getLanguageFlag } from "../components/FriendCard";
 import NoFriendsFound from "../components/NoFriendsFound"
 
