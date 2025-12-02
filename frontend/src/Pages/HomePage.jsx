@@ -125,7 +125,6 @@ const HomePage = () => {
                         <div className="avatar size-16 rounded-full">
                           <img src={user.profilePic} alt={user.fullName} />
                         </div>
-
                         <div>
                           <h3 className="font-semibold text-lg">
                             {user.fullName}

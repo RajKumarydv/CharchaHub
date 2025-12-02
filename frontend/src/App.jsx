@@ -45,7 +45,7 @@ const App = () => {
             !isAuthenticated ? (
               <SignUpPage />
             ) : (
-              <Navigate to={isOnboarded ? "/" : "/"} />
+              <Navigate to={isOnboarded ? "/" : "/onboarding"} />
             )
           }
         />
@@ -83,7 +83,7 @@ const App = () => {
         />
 
         <Route
-          path="/chat/:id"
+          path="/chat"
           element={
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={false}>
@@ -110,6 +110,7 @@ const App = () => {
           }
         />
       </Routes>
+
       <Toaster />
     </div>
   );
