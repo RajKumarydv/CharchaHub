@@ -83,7 +83,7 @@ const App = () => {
         />
 
         <Route
-          path="/chat"
+          path="/chat/:id"
           element={
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={false}>
