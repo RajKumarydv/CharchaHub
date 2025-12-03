@@ -43,3 +43,10 @@ app.listen(PORT, () => {
 
   connectDB();
 });
+
+console.log("PORT:", process.env.PORT);
+console.log("MONGO_URI startsWith:", process.env.MONGO_URI?.slice(0, 30));
+console.log("STEAM_API_KEY:", !!process.env.STEAM_API_KEY);
+console.log("STEAM_API_KEY:", !!process.env.STEAM_API_KEY);
+console.log("JWT_SECRET present:", !!process.env.JWT_SECRET);
+

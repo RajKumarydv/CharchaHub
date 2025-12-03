@@ -2,6 +2,15 @@ import { upsertStreamUser } from "../lib/stream.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
+function createToken(userId) {
+  return jwt.sign(
+    { userId },
+    process.env.JWT_SECRET_KEY || process.env.JWT_SECRET,
+    {
+      expiresIn: "7d",
+    }
+  );
+}
 
 export async function signup(req, res) {
   const { email, password, fullName } = req.body;
@@ -27,7 +36,7 @@ export async function signup(req, res) {
     if (existingUser) {
       return res
         .status(400)
-        .json({ message: "Email already exists, please use a diffrent one" });
+        .json({ message: "Email already exists, please use a different one" });
     }
 
     const idx = Math.floor(Math.random() * 100) + 1; // generate a num between 1-100
@@ -50,29 +59,22 @@ export async function signup(req, res) {
     } catch (error) {
       console.log("Error creating Stream user:", error);
     }
-      // await upsertStreamUser({
-      //   id: newUser._id.toString(),
-      //   name: newUser.fullName,
-      //   image: newUser.profilePic || "",
-      // });
 
+    const token = createToken(newUser._id);
 
-    const token = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "7d",
-      }
-    );
-
+    // set cookie (httpOnly)
     res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true, // prevent XSS attacks,
-      sameSite: "strict", // prevent CSRF attacks
+      httpOnly: true,
+      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.status(201).json({ success: true, user: newUser });
+    // TEMP: debug print token on server (remove in production)
+    console.log("Generated Signup Token:", token);
+
+    // Return token in JSON as well so frontend can read & use it
+    res.status(201).json({ success: true, token, user: newUser });
   } catch (error) {
     console.log("Error in signup controller", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -95,18 +97,21 @@ export async function login(req, res) {
     if (!isPasswordCorrect)
       return res.status(401).json({ message: "Invalid email or password" });
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "7d",
-    });
+    const token = createToken(user._id);
 
+    // set cookie (httpOnly)
     res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true, // prevent XSS attacks,
-      sameSite: "strict", // prevent CSRF attacks
+      httpOnly: true,
+      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.status(200).json({ success: true, user });
+    // TEMP: show token in server console for debugging
+    console.log("Generated Login Token:", token);
+
+    // Return token in JSON so frontend can read it
+    res.status(200).json({ success: true, token, user });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
