@@ -21,16 +21,7 @@ app.use(
 );
 
 
-// app.get('/api/auth/singup', (req, res) => {
-//   res.send('singup route');
-// });
 
-// app.get('/api/auth/login', (req, res) => {
-//   res.send('login route');
-// });
-//  app.get('/api/auth/logout', (req, res) => {
-//   res.send('logout route');
-// });
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
@@ -39,14 +30,12 @@ app.use("/api/chat",chatRoutes);
 
 
 app.listen(PORT, () => {
- console.log(`Server is running on port ${PORT} http://localhost:${PORT}`);
+//  console.log(`Server is running on port ${PORT} http://localhost:${PORT}`);
 
   connectDB();
 });
 
-console.log("PORT:", process.env.PORT);
-console.log("MONGO_URI startsWith:", process.env.MONGO_URI?.slice(0, 30));
-console.log("STEAM_API_KEY:", !!process.env.STEAM_API_KEY);
-console.log("STEAM_API_KEY:", !!process.env.STEAM_API_KEY);
-console.log("JWT_SECRET present:", !!process.env.JWT_SECRET);
+// console.log("PORT:", process.env.PORT);
+// console.log("MONGO_URI startsWith:", process.env.MONGO_URI?.slice(0, 30));
+
 
